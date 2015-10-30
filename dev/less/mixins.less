@@ -1,0 +1,115 @@
+.tn(@transition: all 200ms ease) {
+  transition: @transition;
+}
+
+// sizing
+//-----------------------------------------------------------------------------
+.bxz(@sizing: border-box) {
+  box-sizing: @sizing;
+}
+
+// opacity
+//-----------------------------------------------------------------------------
+.op(@val: 0) {
+  opacity: @val;
+  .lte-ie-8 & {
+    @opperc: @val * 100;
+    -ms-filter: ~"progid:DXImageTransform.Microsoft.Alpha(opacity=@{opperc})";
+    filter: ~"alpha(opacity=@{opperc})";
+  }
+}
+// user select
+//-----------------------------------------------------------------------------
+.us(@selection: red) when (iscolor(@selection)) {
+  user-select: text;
+  cursor: auto;
+  &::selection {
+    background-color: fade(@selection, 99%);
+    color: #ffffff;
+  }
+}
+.us(none) {
+  user-select: none;
+  cursor: default;
+}
+
+// gradients
+//-----------------------------------------------------------------------------
+#gradient {
+  .horizontal(@start-color: #555; @end-color: #333; @start-percent: 0%; @end-percent: 100%) {
+    background-image:    svg-gradient(to right, @start-color @start-percent, @end-color @end-percent); // IE9
+    background-image: linear-gradient(to right, @start-color @start-percent, @end-color @end-percent); // Standard, IE10, Firefox 16+, Opera 12.10+, Safari 7+, Chrome 26+
+    .lt-ie-9 & {
+      filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=1)",argb(@start-color),argb(@end-color))); // IE8 and down
+    }
+  }
+  .vertical(@start-color: #555; @end-color: #333; @start-percent: 0%; @end-percent: 100%) {
+    background-image:    svg-gradient(to bottom, @start-color @start-percent, @end-color @end-percent); // IE9
+    background-image: linear-gradient(to bottom, @start-color @start-percent, @end-color @end-percent); // Standard, IE10, Firefox 16+, Opera 12.10+, Safari 7+, Chrome 26+
+    .lt-ie-9 & {
+      filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)",argb(@start-color),argb(@end-color))); // IE8 and down
+    }
+  }
+}
+
+// css triangles
+//-----------------------------------------------------------------------------
+.triangle(@_, @width, @height, @color) {
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  transform: rotate(360deg);
+}
+
+.triangle(top, @width, @height, @color) {
+  border-width: 0 @width/2 @height @width/2;
+  border-bottom-color: @color;
+  border-left-color: transparent;
+  border-right-color: transparent;
+}
+
+.triangle(bottom, @width, @height, @color) {
+  border-width: @height @width/2 0 @width/2;
+  border-top-color: @color;
+  border-left-color: transparent;
+  border-right-color: transparent;
+}
+
+.triangle(right, @width, @height, @color) {
+  border-width: @height/2 0 @height/2 @width;
+  border-left-color: @color;
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+}
+
+.triangle(left, @width, @height, @color) {
+  border-width: @height/2 @width @height/2 0;
+  border-right-color: @color;
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+}
+
+.triangle(top-right, @width, @height, @color) {
+  border-width: 0 @width @height 0;
+  border-right-color: @color;
+  border-bottom-color: transparent;
+}
+
+.triangle(top-left, @width, @height, @color) {
+  border-width: @height @width 0 0;
+  border-top-color: @color;
+  border-right-color: transparent;
+}
+
+.triangle(bottom-right, @width, @height, @color) {
+  border-width: 0 0 @height @width;
+  border-bottom-color: @color;
+  border-left-color: transparent;
+}
+
+.triangle(bottom-left, @width, @height, @color) {
+  border-width: @height 0 0 @width;
+  border-left-color: @color;
+  border-top-color: transparent;
+}

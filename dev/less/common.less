@@ -1,0 +1,48 @@
+/* Common classes
+-----------------------------------------------------------------------------*/
+.clear {
+  clear: both;
+}
+.clear-fix {
+  &:after {
+    content: '';
+    clear: both;
+    display: table;
+    width: 100%;
+  }
+}
+.webkit-flicker-fix {
+  -webkit-backface-visibility: hidden;
+}
+.webkit-border-radius-fix {
+  -webkit-mask-image: -webkit-radial-gradient(circle, white, black);
+  .webkit-flicker-fix;
+}
+
+/* positioning
+-----------------------------------------------------------------------------*/
+.pa {
+  position: absolute;
+}
+.pr {
+  position: relative;
+}
+.fl {
+  float: left;
+}
+.fr {
+  float: right;
+}
+
+/* sizing
+-----------------------------------------------------------------------------*/
+.full-width {
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* transitions
+-----------------------------------------------------------------------------*/
+// a, a *, a:before, a:after {
+//   .tn();
+// }
