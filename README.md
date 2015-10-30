@@ -11,3 +11,12 @@ Include plugins :
   - Gulp-uglify
   - Gulp-watch
   - Gulp-watch-less
+
+Как начать:
+HTML в корне проекта собирается через dev/templates + dev/chunks.
+Конструкция "@@include('../chunks/head.html')" -> ищет данный темплейт в chunks.
+
+Для запуска - открываем консоль в нашем проекте, пишем - gulp .
+
+
+
