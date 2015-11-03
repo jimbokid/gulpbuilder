@@ -6,8 +6,11 @@ var path = require('path');
 var fileinclude = require('gulp-file-include');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
+var connect = require('gulp-connect');
+var minifyCSS = require('gulp-minify-css');
 
-gulp.task('default',['concat','less','fileinclude','watch']);
+
+gulp.task('default',['concat','less','fileinclude','connect','watch']);
 
 gulp.task('less', function () {
   var autoprefix= new LessPluginAutoPrefix({ browsers: ["last 2 versions"] });
@@ -17,9 +20,18 @@ gulp.task('less', function () {
       plugins: [autoprefix],
       paths: [ path.join(__dirname, 'less', 'includes') ]
     }))
+    .pipe(minifyCSS())
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest('./css/'));
 });
+
+gulp.task('connect',function(){
+  connect.server({
+    port: 1337,
+    root: './',
+    livereload: true
+  });
+})
 
 gulp.task('fileinclude', function() {
   gulp.src(['./dev/templates/*.html'])
@@ -30,6 +42,11 @@ gulp.task('fileinclude', function() {
     .pipe(gulp.dest('./'));
 });
 
+gulp.task('html', function () {
+  gulp.src('./*.html')
+    .pipe(connect.reload());
+});
+
 gulp.task('concat', function() {
   return gulp.src(['./dev/js/jquery-1.11.1.min.js','./dev/js/lib/*.js'])
     .pipe(concat('libs.js'))
@@ -38,6 +55,6 @@ gulp.task('concat', function() {
 
 gulp.task('watch',function(){
   gulp.watch('dev/less/*.less',['less']);
-  gulp.watch('dev/chunks/*.html',['fileinclude']);
-  gulp.watch('dev/templates/*.html',['fileinclude']);
+  gulp.watch('dev/chunks/*.html',['fileinclude','html']);
+  gulp.watch('dev/templates/*.html',['fileinclude','html']);
 });
