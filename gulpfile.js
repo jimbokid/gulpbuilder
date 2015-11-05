@@ -20,7 +20,7 @@ gulp.task('less', function () {
       plugins: [autoprefix],
       paths: [ path.join(__dirname, 'less', 'includes') ]
     }))
-    .pipe(sourcemaps.write())
+    .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest('./css/'));
 });
 
