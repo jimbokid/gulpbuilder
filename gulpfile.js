@@ -15,7 +15,7 @@ gulp.task('default',['concat','less','fileinclude','connect','watch']);
 gulp.task('less', function () {
   var autoprefix= new LessPluginAutoPrefix({ browsers: ["last 2 versions"] });
   return gulp.src('./dev/less/style.less')
-    .pipe(sourcemaps.init('./test/'))
+    .pipe(sourcemaps.init())
     .pipe(less({
       plugins: [autoprefix],
       paths: [ path.join(__dirname, 'less', 'includes') ]
