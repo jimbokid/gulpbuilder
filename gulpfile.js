@@ -13,7 +13,7 @@ var minifyCSS = require('gulp-minify-css');
 gulp.task('default',['concat','less','fileinclude','connect','watch']);
 
 gulp.task('less', function () {
-  var autoprefix= new LessPluginAutoPrefix({ browsers: ["last 2 versions"] });
+  var autoprefix= new LessPluginAutoPrefix({ browsers: ["last 2 versions", "IE 9"] });
   return gulp.src('./dev/less/style.less')
     .pipe(sourcemaps.init())
     .pipe(less({
